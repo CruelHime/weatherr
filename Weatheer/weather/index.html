@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>WeatherKittis</title>
+</head>
+<body>
+    <div id="WeatherNow"></div>
+    <script type='text/babel'>
+        let weatherType = {
+            'Небольшой снег':'art/Снег.png',
+            'Солнечно':'art/Солнечно.png',
+            'Облачно':'art/Облачно.png',
+            'Гроза':'art/Гроза.png'
+        }
+        class Weather_Block extends React.Component{
+
+            render(){
+                let Days = {
+                    'Небольшой снег Утро':'#32CCBC',
+                    'Солнечно День': '#FFFF00',
+                    'Облачно Вечер':'#D2691E',
+                    'Гроза Ночь':'#2F4F4F'
+                }
+
+                let StyleBlock = {
+                    'height': '120px',
+                    'width' : '400px',
+                    'margin': '1rem',
+                    'borderRadius': '60px',
+                    'backgroundColor':`${Days[this.props.weatherType + ' ' +  this.props.name]}`,
+                    'display': 'flex',
+                    'justifyContent':'center'
+                }
+
+                let StyleText = {
+                    'fontSize':'1rem',
+                    'color':'#000',
+                    'marginRight':'30px',
+                    'margin': '2px'
+                }
+
+               
+
+                return(
+                    <div className="Weather" style={StyleBlock} >                    
+                        <div style={StyleText} >
+                            <div>Температура: {this.props.temp} °C 
+                            </div>
+                        </div>
+                        <div style={StyleText}>
+                            <img width='70px' src={weatherType[this.props.weatherType]}/>
+                            <div style={StyleText}/> Погода: {this.props.weatherType} 
+                        </div>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(
+            <div>
+                <Weather_Block name='Утро' temp='3' weatherType='Небольшой снег'/>
+                <Weather_Block name='День' temp='10' weatherType='Солнечно'/>    
+                <Weather_Block name='Вечер' temp='7' weatherType='Облачно'/> 
+                <Weather_Block name='Ночь' temp='4' weatherType='Гроза'/>
+            </div>, 
+            document.getElementById('WeatherNow')
+            )
+    </script>
+</body>
+</html>
